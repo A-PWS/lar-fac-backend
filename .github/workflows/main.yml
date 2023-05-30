@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
           MYSQL_DATABASE: test_database
         ports:
           - 3306:3306
@@ -41,7 +41,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Run migrations
-        run: php artisan migrate --force --database=mysql --username=root --password=
+        run: php artisan migrate --force
 
       - name: Run tests
         run: php artisan test
