@@ -19,6 +19,7 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
       DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
       
     steps:
       - name: Checkout code
