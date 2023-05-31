@@ -12,16 +12,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test_database
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
+    env:
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -39,9 +38,6 @@ jobs:
 
       - name: Generate application key
         run: php artisan key:generate
-
-      - name: Run migrations
-        run: php artisan migrate --force
 
       - name: Run tests
         run: php artisan test
